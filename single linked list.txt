@@ -1,0 +1,103 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node{
+    int data;
+    struct node*link;
+}Node;
+Node* createnode(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    if(!newnode){
+        printf("node creation error\n");
+        exit(1);
+    }
+    newnode->data=data;
+    newnode->link=NULL;
+    return newnode;
+}
+void insertatfront(Node**head,int data){
+    Node*newnode=createnode(data);
+    newnode->link=*head;
+    *head=newnode;
+    
+}
+void insertatend(Node**head,int data)
+{
+    Node*newnode=createnode(data);
+    if(head==NULL){
+        *head=newnode;
+        return;
+    }
+    Node* temp=*head;
+    while(temp->link!=NULL){
+        temp=temp->link;
+    }
+    temp->link=newnode;
+    
+}
+void deleteatend(Node**head){
+    if(head==NULL){
+        printf("LInked list is empty\n");
+        return;
+    }
+    Node* temp=*head;
+    if(temp->link==NULL){
+        free(head);
+        head=NULL;
+        return;
+    }
+    if(temp->link->link!=NULL){
+        temp=temp->link;
+    }
+    free(temp->link);
+    temp->link=NULL;
+}
+void deleteatfront(Node**head){
+    if(*head==NULL){
+        printf("LL is empty\n");
+        return;
+    }
+    Node* temp=*head;
+    *head=(*head)->link;
+    free(temp);
+}
+void display(Node*head){
+    if(head==NULL){
+        printf("LInked list is empty\n");
+        return;
+    }
+    Node* temp=head;
+   // printf("%d\n",temp->data);
+    while(temp!=NULL){
+        printf("|%d|\t",temp->data);
+        temp=temp->link;
+    }
+    
+}
+int main(){
+    Node*head=NULL;
+    int a,b;
+    while(1){
+    printf("press:\n1.insrtfront\n2.insertend\n3.deleteend\n4.display\n5.exit\n6.deleteatfront\n");
+    scanf("%d",&a);
+    switch(a){
+        case 1:printf("enter the value\n");
+               scanf("%d",&b);
+               insertatfront(&head,b);
+               break;
+        case 2:printf("enter the value\n");
+                scanf("%d",&b);
+                insertatend(&head,b);
+                break;
+        case 3:deleteatend(&head);
+                break;
+        case 4:display(head);
+                break;
+        case 5:exit(1);
+        case 6:deleteatfront(&head);
+                break;
+        default:printf("enter the valid choce\n");
+    }
+    }
+    return 0;
+}
+
