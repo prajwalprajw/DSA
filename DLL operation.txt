@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct NODE{
+    int data;
+    struct NODE* rlink;
+    struct NODE* llink;
+}NODE;
+NODE* createnode(int data){
+    NODE* newnode=(NODE*)malloc(sizeof(NODE));
+    newnode->data=data;
+    newnode->rlink=NULL;
+    newnode->llink=NULL;
+    return newnode;
+}
+void insertatfront(NODE**head,int data){
+    NODE* newnode=createnode(data);
+    if((*head)==NULL){
+        *head=newnode;
+    }else{
+        newnode->rlink=*head;
+        (*head)->llink=newnode;
+        *head=newnode;
+    }
+    
+}
+void insertend(NODE**head,int data){
+    NODE* temp=*head;
+    NODE* newnode=createnode(data);
+    if(*head==NULL){
+        *head=newnode;
+    }else{
+        while(temp->rlink!=NULL){
+            temp=temp->rlink;
+        }
+        temp->rlink=newnode;
+        if(*head!=NULL){
+            newnode->llink=temp;
+        }
+    }
+}
+void deletefront(NODE**head){
+    NODE* temp=*head;
+    if((*head)==NULL){
+        printf("linked list is empty\n");
+        return;
+    }
+    *head=(*head)->rlink;
+    if(*head!=NULL){
+        (*head)->llink=NULL;
+    }
+    free(temp);
+}
+void deleteend(NODE**head){
+    NODE* temp=*head;
+    if(*head==NULL){
+        printf("LL is empty\n");
+        return;
+    }
+    /*if(temp->rlink==NULL){
+        *head=NULL;
+    }*/
+    while(temp->rlink!=NULL){
+        temp=temp->rlink;
+    }
+    if(temp->llink!=NULL){
+        temp->llink->rlink=NULL;
+    }else{
+        *head=NULL;
+    }
+    free(temp);
+}
+void display(NODE*head){
+    NODE* temp=head;
+    if(head==NULL){
+        printf("LL is empty\n");
+    }else{
+        while(temp!=NULL){
+            printf("|%d|\t",temp->data);
+            temp=temp->rlink;
+        }
+        
+    }
+    
+}
+int main(){
+    NODE* head=NULL;
+    int a,b;
+    printf("press\n1.insertfront\t2.insertend\n3.deletefront\t4.deleteend\n5.display\t6.exit\n"); while(1){printf("enetr your choice\n");
+    scanf("%d",&a);
+   
+    switch(a){
+        case 1:printf("eneter the element to be inserted\n");
+                scanf("%d",&b);
+                insertatfront(&head,b);
+                break;
+        case 2:printf("eneter the element to be inserted\n");
+                scanf("%d",&b);
+                insertend(&head,b);
+                break;
+        case 3:deletefront(&head);
+                break;
+        case 4:deleteend(&head);
+                break;
+        case 5:display(head);
+                break;
+        
+        case 6:exit(0);
+        default:printf("eneter the valid chioice\n");
+    }
+    }
+    return 0;
+    
+}
