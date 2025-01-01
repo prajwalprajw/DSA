@@ -1,0 +1,69 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 40
+int s[MAX];
+int top=-1,el;
+void insert(){
+    if(top==MAX-1){
+        printf("stack is full, can not insert an element");
+        return;
+    }
+    printf("enter an element to be inserted");
+    scanf("%d",&el);
+    top=top+1;
+    s[top]=el;
+}
+void display(){
+    if(top==-1){
+        printf("stack is empty,no element to display");
+        return; 
+    }
+    printf("STACK ELEMENTS ARE:\n");
+    for(int i=0;i<=top;i++){
+        printf("%d\t \t",s[i]);
+    }
+}
+void delete(){
+    if(top==-1){
+        printf("stack is empty can not delete an element\n");
+        return;
+    }
+    el=s[top];
+    printf("deleted element is %d\n",el);
+    top=top-1;
+    }
+    
+void isempty(){
+    if(top==-1){
+        printf("stack is empty can not delete an element\n");
+        return;
+    }
+    printf("stack is not empty\n");
+    
+}
+void isfull(){
+    if(top==MAX-1){
+        printf("stack is full, can not insert an element");
+        return;
+    }
+    printf("stack is not full\n");
+}
+
+void main(){
+    int s;
+    while (1){
+    printf("\n1.insert\t2.display\t3.delete\t4.isempty\t5.isfull\t6.exit\nenter your choice");
+    scanf("%d",&s);
+    switch(s){
+        case 1:insert();break;
+        case 2:display();break;
+        case 3:delete();break;
+        case 4:isempty();break;
+        case 5:isfull();break;
+        case 6:exit(1);
+        default:printf("Entre the valid choice\n");
+    }
+    
+}
+    
+}
